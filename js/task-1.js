@@ -1,29 +1,38 @@
-// todo Задача 1. Замовлення дроїдів
+// todo Задача 1. Пакування товарів
 
-// todo Станція з продажу ремонтних дроїдів готова до запуску, залишилося написати програмне забезпечення для відділу продажів. Оголоси функцію makeTransaction(quantity, pricePerDroid, customerCredits), яка складає та повертає повідомлення про купівлю ремонтних дроїдів.
+// todo Напиши функцію isEnoughCapacity(products, containerSize), яка обчислює, чи помістяться всі товари в контейнер при пакуванні.
 
-// todo Вона оголошує три параметри, значення яких будуть задаватися під час її виклику:
+// todo Функція оголошує два параметри:
 
-// todo quantity — кількість замовлених дроїдів
-// todo pricePerDroid — ціна одного дроїда
-// todo customerCredits — сума коштів на рахунку клієнта
+// todo products — об’єкт, у якому ключі містять назви товарів, а їхні значення — кількість цих товарів. Наприклад, { apples: 2, grapes: 4 }.
+// todo containerSize — число, максимальна кількість одиниць товарів, яку в себе може вмістити контейнер.
 
-// todo Доповни функцію таким чином:
+// todo Функція має повернути результат перевірки, чи помістяться всі товари в контейнер. Тобто порахувати загальну кількість товарів в об’єкті products і повернути true, якщо вона менше або дорівнює containerSize, і false, якщо ні.
 
-// todo Оголоси змінну для зберігання загальної суми замовлення (загальна вартість усіх замовлених дроїдів) і задай їй вираз розрахунку цієї суми.
-// todo Додай перевірку, чи зможе клієнт оплатити замовлення: якщо сума до сплати перевищує кількість кредитів на рахунку клієнта, функція має повертати рядок "Insufficient funds!" в іншому випадку функція має повертати рядок "You ordered <quantity> droids worth <totalPrice> credits!", де <quantity> це кількість замовлених дроїдів, а <totalPrice> це їх загальна вартість.
+// todo Візьми код нижче і встав після оголошення своєї функції для перевірки коректності її роботи. У консоль будуть виведені результати її викликів.
 
-function makeTransaction(quantity, pricePerDroid, customerCredits) {
-  const totalPrice = quantity * pricePerDroid;
-  if (totalPrice <= customerCredits) {
-    return `You ordered ${quantity} droids worth ${totalPrice} credits!`;
-  } else {
-    return "Insufficient funds!";
+function isEnoughCapacity(products, containerSize) {
+  let totalItems = 0;
+  for (const product in products) {
+    totalItems += products[product];
   }
+  return totalItems <= containerSize;
 }
 
-console.log(makeTransaction(5, 3000, 23000)); // "You ordered 5 droids worth 15000 credits!"
-console.log(makeTransaction(3, 1000, 15000)); // "You ordered 3 droids worth 3000 credits!"
-console.log(makeTransaction(10, 5000, 8000)); // "Insufficient funds!"
-console.log(makeTransaction(8, 2000, 10000)); // "Insufficient funds!"
-console.log(makeTransaction(10, 500, 5000)); // "You ordered 10 droids worth 5000 credits!"
+// На що буде звертати увагу ментор при перевірці:
+
+// Оголошена функція isEnoughCapacity(products, containerSize)
+// Виклик isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8) повертає true
+// Виклик isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12) повертає false
+// Виклик isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14) повертає true
+// Виклик isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7) повертає false
+
+// * Перевірка
+
+console.log(isEnoughCapacity({ apples: 2, grapes: 3, carrots: 1 }, 8)); // true
+
+console.log(isEnoughCapacity({ apples: 4, grapes: 6, lime: 16 }, 12)); // false
+
+console.log(isEnoughCapacity({ apples: 1, lime: 5, tomatoes: 3 }, 14)); // true
+
+console.log(isEnoughCapacity({ apples: 18, potatoes: 5, oranges: 2 }, 7)); // false
